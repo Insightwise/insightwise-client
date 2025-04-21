@@ -1,7 +1,10 @@
+import os
+
 from client.session import Session
 from client.exceptions import AuthenticationError
-from warrant import Cognito
+from warrant_lite import WarrantLite
 import requests
+import boto3
 
 
 class AuthClient:
@@ -11,20 +14,22 @@ class AuthClient:
 
     def login_user(self, username: str, password: str, client_id: str, user_pool_id: str) -> Session:
 
+        cognito_client = boto3.client("cognito-idp", region_name=os.environ["REGION"])
         try:
-            cognito = Cognito(
-                user_pool_id=user_pool_id,
-                client_id=client_id,
+            srp = WarrantLite(
                 username=username,
+                password=password,
+                pool_id=user_pool_id,
+                client_id=client_id,
+                client=cognito_client,
             )
-
-            cognito.authenticate(password=password)
+            tokens = srp.authenticate_user()
 
             return Session(
-                id_token=cognito.id_token,
-                access_token=cognito.access_token,
-                refresh_token=cognito.refresh_token,
-                **self._get_me(cognito.id_token)
+                id_token=tokens["AuthenticationResult"]["IdToken"],
+                access_token=tokens["AuthenticationResult"]["AccessToken"],
+                refresh_token=tokens["AuthenticationResult"]["RefreshToken"],
+                **self._get_me(tokens["AuthenticationResult"]["IdToken"])
             )
 
         except Exception as e:

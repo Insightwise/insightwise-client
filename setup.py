@@ -6,8 +6,9 @@ setup(
     packages=find_packages(include=["client", "client.*"]),
     install_requires=[
         "requests==2.32.3",
-        "warrant==0.6.1",
-        "pycryptodome==3.22.0"
+        "warrant-lite==1.0.4",
+        "boto3==1.37.35",
+        "python-jose[cryptography]",
     ],
     author="InsightWise",
     author_email="support@insightwise.ai",

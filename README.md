@@ -14,13 +14,14 @@ pip install git+https://github.com/insightwise/insightwise-client.git
 
 Before using the client, set the following environment variables:
 
-| Variable         | Description                           |
-|------------------|---------------------------------------|
-| `BASE_URL`       | The base URL for the InsightWise API. |
-| `CLIENT_ID`      | Cognito app client ID.                |
-| `USER_POOL_ID`   | Cognito user pool ID.                 |
-| `USER`           | Your InsightWise username (email).    |
-| `PASS`           | Your InsightWise password.            |
+| Variable         | Description                             |
+|------------------|-----------------------------------------|
+| `BASE_URL`       | The base URL for the InsightWise API.   |
+| `CLIENT_ID`      | Cognito app client ID.                  |
+| `USER_POOL_ID`   | Cognito user pool ID.                   |
+| `REGION`         | The aws region                          |
+| `USER`           | Your InsightWise username (email).      |
+| `PASS`           | Your InsightWise password.              |
 
 Example:
 
@@ -28,6 +29,7 @@ Example:
 export BASE_URL=https://your-api.example.com
 export CLIENT_ID=abc123xyz456
 export USER_POOL_ID=ap-southeast-2_example
+export REGION=ap-southeast-2
 export USER=your@email.com
 export PASS=yourpassword
 ```
