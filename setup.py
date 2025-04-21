@@ -8,6 +8,7 @@ setup(
         "requests==2.32.3",
         "warrant-lite==1.0.4",
         "boto3==1.37.35",
+        "pydantic==2.11.3",
         "python-jose[cryptography]",
     ],
     author="InsightWise",
