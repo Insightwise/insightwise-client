@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union, List, Dict
 from pydantic import BaseModel
 
 from client.models import DatabaseModel, StringEnum, CoreModel
@@ -38,10 +38,10 @@ class DocumentStatus(StringEnum):
 
 class Participant(BaseModel):
     reference: str
-    name: str | None = None
-    role: str | None = None
+    name: Optional[str] = None
+    role: Optional[str] = None
     is_interviewer: bool = False
-    additional: dict | None = None
+    additional: Optional[Dict] = None
 
 
 class File(BaseModel):
@@ -53,26 +53,26 @@ class File(BaseModel):
 class Document(DatabaseModel):
     name: str
     organisation_id: str
-    project_id: str | None = None
+    project_id: Optional[str] = None
     status: DocumentStatus = DocumentStatus.CREATED
-    size: float | None = None
-    url: str | None = None
-    credit_cost: float | None = None
+    size: Optional[float] = None
+    url: Optional[str] = None
+    credit_cost: Optional[float] = None
     progress_details: Optional[str] = None
     progress: float = 0
-    participants: list[Participant] | None = None
+    participants: Optional[List[Participant]] = None
     transcript_file: Optional[File] = None
-    document_type: DocumentType | None = None
+    document_type: Optional[DocumentType] = None
     failure_type: Optional[DocumentFailureType] = None
-    confirmed: bool | None = None
+    confirmed: Optional[bool] = None
 
 
 class DocumentCreate(CoreModel):
     name: str
-    content_type: str | None = None
+    content_type: Optional[str] = None
     size: int = 0
 
 
 class DocumentUpdate(CoreModel):
-    status: DocumentStatus | None = None
-    confirmed: bool | None = None
+    status: Optional[DocumentStatus] = None
+    confirmed: Optional[bool] = None

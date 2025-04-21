@@ -1,3 +1,4 @@
+from typing import List, Optional, Union
 from client.models import StringEnum, DatabaseModel, CoreModel
 
 
@@ -19,19 +20,19 @@ class DashboardThemeInsight(CoreModel):
 
 
 class DashboardTheme(DatabaseModel):
-    id: str | None = None
+    id: Optional[str] = None
     organisation_id: str
     project_id: str
     dashboard_id: str
     theme: str
     description: str
-    insights: list[DashboardThemeInsight] | None = None
-    unique_documents: int | None = None
-    unique_mentions: int | None = None
-    mentions: int | None = None
+    insights: Optional[List[DashboardThemeInsight]] = None
+    unique_documents: Optional[int] = None
+    unique_mentions: Optional[int] = None
+    mentions: Optional[int] = None
     status: DashboardThemeStatus = DashboardThemeStatus.CREATED
-    progress_details: str | None = None
-    failure_type: DashboardThemeFailureType | None = None
+    progress_details: Optional[str] = None
+    failure_type: Optional[DashboardThemeFailureType] = None
 
 
 class DashboardThemeUpdate(CoreModel):

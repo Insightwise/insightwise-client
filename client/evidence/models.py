@@ -1,3 +1,5 @@
+from typing import Union, Optional, List, Set, Dict
+
 from client.documents.models import DocumentType
 from client.models import StringEnum, DatabaseModel, CoreModel
 from pydantic import BaseModel, Field, field_serializer
@@ -16,8 +18,8 @@ class ChunkMeta(BaseModel):
 
 
 class ChunkInsight(CoreModel):
-    theme: str | None = None
-    insight: str | None = None
+    theme: Optional[str] = None
+    insight: Optional[str] = None
 
     def __hash__(self):
         """Allows the model to be used in a set by hashing theme + insight."""
@@ -31,31 +33,31 @@ class ChunkInsight(CoreModel):
 
 
 class Chunk(DatabaseModel):
-    document_id: str | None
-    project_id: str | None = None
-    organisation_id: str | None = None
-    dashboard_id: str | None = None
-    speaker: str | None = None
-    speaker_id: str | None = None
+    document_id: Optional[str]
+    project_id: Optional[str] = None
+    organisation_id: Optional[str] = None
+    dashboard_id: Optional[str] = None
+    speaker: Optional[str] = None
+    speaker_id: Optional[str] = None
     is_interviewer: bool = False
-    question: str | None = None
-    raw_text: str | None = None
-    document_name: str | None = None
-    document_type: DocumentType | None = None
-    chunk_meta: list[ChunkMeta] | None = None
-    related_insights: set[ChunkInsight] = Field(default_factory=set)
-    labels: dict = Field(default_factory=dict)
+    question: Optional[str] = None
+    raw_text: Optional[str] = None
+    document_name: Optional[str] = None
+    document_type: Optional[DocumentType] = None
+    chunk_meta: Optional[List[ChunkMeta]] = None
+    related_insights: Set[ChunkInsight] = Field(default_factory=set)
+    labels: Dict = Field(default_factory=dict)
 
     @field_serializer("related_insights")
-    def serialize_related_insights(self, value: set[str], _info) -> list[str]:
+    def serialize_related_insights(self, value: Set[str], _info) -> List[str]:
         # Convert set to list for JSON serialization
         return list(value)
 
 
 class ChunkUpdate(BaseModel):
-    related_insights: set[ChunkInsight] = Field(default_factory=set)
+    related_insights: Set[ChunkInsight] = Field(default_factory=set)
 
     @field_serializer("related_insights")
-    def serialize_related_insights(self, value: set[str], _info) -> list[str]:
+    def serialize_related_insights(self, value: Set[str], _info) -> List[str]:
         # Convert set to list for JSON serialization
         return list(value)

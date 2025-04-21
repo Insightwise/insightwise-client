@@ -1,3 +1,4 @@
+from typing import List, Optional, Dict, Union
 from pydantic import Field
 from client.models import StringEnum, DatabaseModel, CoreModel
 
@@ -22,28 +23,27 @@ class DashboardStatus(StringEnum):
 class Dashboard(DatabaseModel):
     organisation_id: str
     project_id: str
-    document_ids: list[str]
+    document_ids: List[str]
     name: str
     progress: float = 0
-    progress_details: str | None = None
-    chunk_query: list[dict] | None = None
+    progress_details: Optional[str] = None
+    chunk_query: Optional[List[Dict]] = None
     status: DashboardStatus = DashboardStatus.WAITING_FOR_FILES
-    failure_type: DashboardFailureType | None = None
+    failure_type: Optional[DashboardFailureType] = None
     retry_attempts: int = 0
-    task_token: str | None = None
-    prompt_directions: str | None = None
-    allowed_regions: list[str] = Field(default_factory=lambda: ["ap-southeast-2"])
+    task_token: Optional[str] = None
+    prompt_directions: Optional[str] = None
+    allowed_regions: List[str] = Field(default_factory=lambda: ["ap-southeast-2"])
     preferred_language: str = "en-AU"
-    total_unique_mentions: int | None = None
-    total_mentions: int | None = None
+    total_unique_mentions: Optional[int] = None
+    total_mentions: Optional[int] = None
 
 
 class DashboardCreate(CoreModel):
     name: str
-    document_ids: list[str]
+    document_ids: List[str]
     confirmed: bool = True
 
 
 class DashboardUpdate(CoreModel):
-    status: DashboardStatus | None = None
-
+    status: Optional[DashboardStatus] = None

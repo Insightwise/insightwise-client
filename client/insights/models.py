@@ -1,3 +1,4 @@
+from typing import Optional, List
 from client.models import StringEnum, DatabaseModel, CoreModel
 from pydantic import Field
 
@@ -16,7 +17,7 @@ class InsightCardFailureType(StringEnum):
 
 class InsightDetail(CoreModel):
     statement: str
-    chunk_ids: list[str]
+    chunk_ids: List[str]
 
 
 class Insight(DatabaseModel):
@@ -26,20 +27,20 @@ class Insight(DatabaseModel):
     dashboard_theme_id: str
     title: str
     description: str
-    summary: str | None = None
-    details: list[InsightDetail] | None = None
-    unique_documents: int | None = None
-    unique_mentions: int | None = None
-    mentions: int | None = None
-    ordered_evidence: list[str] = Field(default_factory=list)
+    summary: Optional[str] = None
+    details: Optional[List[InsightDetail]] = None
+    unique_documents: Optional[int] = None
+    unique_mentions: Optional[int] = None
+    mentions: Optional[int] = None
+    ordered_evidence: List[str] = Field(default_factory=list)
     status: InsightCardStatus = InsightCardStatus.CREATED
-    progress_details: str | None = None
-    failure_type: InsightCardFailureType | None = None
+    progress_details: Optional[str] = None
+    failure_type: Optional[InsightCardFailureType] = None
     evidence_changes: int = 0
 
 
 class InsightUpdate(CoreModel):
     title: str
     description: str
-    summary: str | None = None
-    details: list[InsightDetail] | None = None
+    summary: Optional[str] = None
+    details: Optional[List[InsightDetail]] = None

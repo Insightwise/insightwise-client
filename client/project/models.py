@@ -23,4 +23,4 @@ class Project(DatabaseModel):
 
 
 class ProjectCreate(BaseModel):
-    name: str | None = "Untitled"
+    name: Optional[str] = "Untitled"
