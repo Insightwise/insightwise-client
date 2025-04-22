@@ -1,11 +1,10 @@
 from datetime import datetime
 from typing import List, Optional
-from pydantic import BaseModel
 
-from client.models import DatabaseModel
+from client.models import DatabaseModel, CoreModel
 
 
-class Permission(BaseModel):
+class Permission(CoreModel):
     user_id: str
     email: str
     role: str
@@ -22,6 +21,6 @@ class Project(DatabaseModel):
     default_dashboard_id: Optional[str] = None
 
 
-class ProjectCreate(BaseModel):
+class ProjectCreate(CoreModel):
     name: Optional[str] = "Untitled"
     ui_version: Optional[int] = 2
