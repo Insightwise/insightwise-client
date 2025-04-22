@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="insightwise-client",
-    version="0.0.0",
+    version="0.0.1",
     packages=find_packages(include=["client", "client.*"]),
     install_requires=[
         "requests==2.32.3",
