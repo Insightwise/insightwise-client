@@ -9,6 +9,7 @@ setup(
         "warrant-lite==1.0.4",
         "boto3==1.37.35",
         "pydantic==2.11.3",
+        "pyhumps==3.8.0",
         "python-jose[cryptography]",
     ],
     author="InsightWise",
