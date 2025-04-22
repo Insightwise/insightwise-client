@@ -24,3 +24,4 @@ class Project(DatabaseModel):
 
 class ProjectCreate(BaseModel):
     name: Optional[str] = "Untitled"
+    ui_version: Optional[int] = 2
